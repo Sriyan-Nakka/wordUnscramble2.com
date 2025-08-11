@@ -21,6 +21,9 @@
       :root {
         --bg-color: hsl(210, 75%, 31%);
         --text-color: hsl(0, 0%, 90%);
+        --good-life: hsl(120, 100%, 32%);
+        --close-life: hsl(39, 100%, 37%);
+        --bad-life: hsl(0, 100%, 40%);
       }
 
       .icon {
@@ -82,6 +85,12 @@
         font-size: 1.07rem;
       }
       button {
+        transition: all 0.2s ease-in-out;
+      }
+      button:hover {
+        font-size: 1.25rem;
+      }
+      button {
         border-radius: 5px;
         border: none;
       }
@@ -112,13 +121,20 @@
       <main>
         <button id="playButton" onclick="startGame()">Play</button>
         <div id="gameContainer" style="display: none">
-          <p id="scrambledWordPara" style="margin: 10px 0px">Loading Word...</p>
-          <p style="margin: 10px 0px">
-            <input type="text" id="guessWord" />
-            <button id="guessButton">Guess</button>
+          <p id="livesPara">
+            <u>
+              <b>Lives: <span id="livesSpan">0</span></b>
+            </u>
           </p>
+          <p id="scrambledWordPara" style="margin: 10px 0px">Loading Word...</p>
+          <form id="guessForm">
+            <p style="margin: 10px 0px">
+              <input type="text" id="guessWord" required />
+              <button id="guessButton" type="submit">Guess</button>
+            </p>
+          </form>
           <p style="margin: 15px 0px">
-            <button id="resetButton">Reset</button>
+            <button id="resetButton" onclick="startGame()">Reset</button>
             <button id="continueButton" style="display: none">Continue</button>
           </p>
         </div>
@@ -152,7 +168,7 @@
           </a>
           <br />
           &copy; Copyright, Sai Sriyan Nakka 2025, All Rights Reserved.
-          <br />Version 0.3 <br />
+          <br />Version 0.4 <br />
         </center>
       </footer>
     </div>
