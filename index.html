@@ -19,9 +19,9 @@
       }
 
       :root {
-        --bg-color: hsl(210, 75%, 31%);
+        --bg-color: hsla(210, 75%, 31%, 0.7);
         --text-color: hsl(0, 0%, 90%);
-        --good-life: hsl(120, 100%, 32%);
+        --good-life: hsl(120, 100%, 37%);
         --close-life: hsl(39, 100%, 37%);
         --bad-life: hsl(0, 100%, 40%);
       }
@@ -82,7 +82,7 @@
       }
       button,
       input {
-        font-size: 1.07rem;
+        font-size: 1.1rem;
       }
       button {
         transition: all 0.2s ease-in-out;
@@ -93,6 +93,24 @@
       button {
         border-radius: 5px;
         border: none;
+      }
+      fieldset {
+        display: inline-block;
+        border: 3px solid whitesmoke;
+        border-radius: 10px;
+      }
+      #playButton {
+        background-color: hsl(120, 73%, 75%);
+      }
+      #playButton:hover {
+        background-color: hsl(120, 73%, 60%);
+      }
+      #resetButton {
+        background-color: hsl(0, 100%, 35%);
+        color: white;
+      }
+      #resetButton:hover {
+        background-color: hsl(0, 100%, 45%);
       }
     </style>
   </head>
@@ -122,21 +140,27 @@
         <button id="playButton" onclick="startGame()">Play</button>
         <div id="gameContainer" style="display: none">
           <p id="livesPara">
-            <u>
-              <b>Lives: <span id="livesSpan">0</span></b>
-            </u>
+            <b>Lives: <span id="livesSpan">0</span></b>
           </p>
-          <p id="scrambledWordPara" style="margin: 10px 0px">Loading Word...</p>
-          <form id="guessForm">
-            <p style="margin: 10px 0px">
-              <input type="text" id="guessWord" required />
-              <button id="guessButton" type="submit">Guess</button>
+          <p style="margin: 10px 0px">
+            <b>Unscrambled Words: <span id="correctGuessSpan"></span>/5</b>
+          </p>
+          <fieldset>
+            <legend>
+              <p id="scrambledWordPara" style="margin: 10px 5px">
+                Loading Word...
+              </p>
+            </legend>
+            <form id="guessForm">
+              <p style="margin: 10px 0px">
+                <input type="text" id="guessWord" required />
+                <button id="guessButton" type="submit">Guess</button>
+              </p>
+            </form>
+            <p style="margin: 15px 0px; margin-bottom: 0px">
+              <button id="resetButton" onclick="startGame()">Reset</button>
             </p>
-          </form>
-          <p style="margin: 15px 0px">
-            <button id="resetButton" onclick="startGame()">Reset</button>
-            <button id="continueButton" style="display: none">Continue</button>
-          </p>
+          </fieldset>
         </div>
       </main>
       <hr id="footerHr" />
@@ -168,7 +192,7 @@
           </a>
           <br />
           &copy; Copyright, Sai Sriyan Nakka 2025, All Rights Reserved.
-          <br />Version 0.4 <br />
+          <br />Version 0.6 <br />
         </center>
       </footer>
     </div>

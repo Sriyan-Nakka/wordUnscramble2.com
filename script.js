@@ -6,12 +6,14 @@ const guessWord = document.querySelector("#guessWord");
 
 let correctWord = "";
 let lives = 0;
+let correctGuessed = 0;
 
 function startGame() {
-  guessWord.value = "";
   playButton.style.display = "none";
 
   lives = 0;
+  correctGuessed = 0;
+  document.querySelector("#correctGuessSpan").textContent = correctGuessed;
 
   while (lives <= 0 || lives >= 16 || isNaN(lives)) {
     lives = Number(
@@ -24,6 +26,8 @@ function startGame() {
 }
 
 function playTurn() {
+  guessWord.value = "";
+  wordPara.textContent = "Loading Word...";
   gameContainer.style.display = "block";
 
   fetch("https://random-word-api.vercel.app/api?words=1")
@@ -44,6 +48,7 @@ function playTurn() {
       }
 
       wordPara.textContent = wordSplit.join("");
+      guessWord.focus();
     });
 }
 
@@ -51,7 +56,28 @@ guessForm.addEventListener("submit", (e) => {
   e.preventDefault();
   let guessedWord = guessWord.value;
   if (guessedWord === correctWord) {
-    //correct function
+    alert("You got it right!");
+    correctGuessed++;
+    document.querySelector("#correctGuessSpan").textContent = correctGuessed;
+    if (correctGuessed === 5) {
+      guessWord.disabled = true;
+      resetButton.disabled = true;
+      document.querySelector("#guessButton").disabled = true;
+      guessWord.value = "";
+
+      setTimeout(() => {
+        guessWord.disabled = false;
+        resetButton.disabled = false;
+        document.querySelector("#guessButton").disabled = false;
+        alert(
+          "Congratulations, you unscrambled all 5 words! Click play to play again."
+        );
+        gameContainer.style.display = "none";
+        playButton.style.display = "inline-block";
+      }, 1500);
+    } else {
+      playTurn();
+    }
   } else {
     lives--;
     alert("You lost a Life!");
@@ -61,7 +87,7 @@ guessForm.addEventListener("submit", (e) => {
 
 function displayLives() {
   document.querySelector("#livesSpan").textContent = lives;
-  if (lives > 5) {
+  if (lives >= 5) {
     document.querySelector("#livesSpan").style.color = "var(--good-life)";
   } else if (lives >= 3) {
     document.querySelector("#livesSpan").style.color = "var(--close-life)";
@@ -69,14 +95,19 @@ function displayLives() {
     document.querySelector("#livesSpan").style.color = "var(--bad-life)";
   } else if (lives === 0) {
     guessWord.disabled = true;
+    resetButton.disabled = true;
     document.querySelector("#guessButton").disabled = true;
     setTimeout(() => {
-      //loss function
       guessWord.disabled = false;
+      resetButton.disabled = false;
       guessWord.value = "";
+
       document.querySelector("#guessButton").disabled = false;
-      alert("You lost! Click Play to play again.");
-      //todo: make it so when exited alert, it closes game container and shows play button
+      alert(
+        `You lost! The word was '${correctWord}'. Click Play to play again.`
+      );
+      gameContainer.style.display = "none";
+      playButton.style.display = "inline-block";
     }, 1500);
   }
 }
