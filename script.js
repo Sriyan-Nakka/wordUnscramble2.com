@@ -38,7 +38,7 @@ function playTurn() {
       let wordSplit = correctWord.split("");
 
       //word shuffler
-      for (let i = 0; i < 100; i++) {
+      for (let i = 0; i < 25; i++) {
         let a = Math.floor(Math.random() * wordSplit.length);
         let b = Math.floor(Math.random() * wordSplit.length);
 
@@ -54,7 +54,7 @@ function playTurn() {
 
 guessForm.addEventListener("submit", (e) => {
   e.preventDefault();
-  let guessedWord = guessWord.value;
+  let guessedWord = guessWord.value.toLowerCase();
   if (guessedWord === correctWord) {
     alert("You got it right!");
     correctGuessed++;
