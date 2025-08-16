@@ -6,6 +6,8 @@ Unscramble game.
 The rules are simple. You have to unscramble the given word. You have set how many lives you have and you have to unscramble a total of 5 scrambled words. Maximum lives you can set is 15.If
 you lose all your lives, you lose. Good luck!
 
+Made using [Random Word API](https://random-word-api.vercel.app)
+
 ### Image Background:
 
 ![Background Image](background.jpg)
